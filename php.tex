@@ -1,0 +1,117 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+\title{PHP tutorial for beginners}
+\author{Lukas Surin}
+
+\begin{document}
+\maketitle
+
+\section{Basic Tutorial}
+This tutorial will lead you through basic functionality of PHP (hypertext preprocessor) used in wide variety of web applications. \\
+Every PHP file start with pair of tags $<?php$ and $?>$. \\
+Every command ends with semicolon. \\
+
+\subsection{First File}
+Files with names home.php or index.php are started first when web page is refreshed even if they are not called explicitly. \\
+\textit{Commands} : 
+\begin{description}
+\item[\hspace{1cm} phpinfo()] Shows info page about running PHP 
+\end{description}
+Video can be seen at : \href{http://youtu.be/QRmmISj6Rrw}{FirstFile}
+
+\subsection{Commenting}
+Comments can be defined (Figure \hyperref[commenting]{\ref{commenting}}) with already known symbols (from java) $//$ for oneline comment or $/* comment */$ and for inter-between lines using $**$ for multiline comments.  \\
+\textit{Commands} : 
+\begin{description}
+\item[\hspace{1cm}] No command in this section
+\end{description}
+Video can be seen at : \href{http://youtu.be/KZecj4u4Scw}{Commenting}
+
+\begin{figure}[h]
+\lstset{language=PHP}
+\begin{lstlisting}
+<?php
+	phpinfo();
+	// OneLine comment
+	/*
+	** MultiLine comment
+	*/	
+?>
+\end{lstlisting}
+\caption{Comment types \label{commenting}}
+\end{figure}
+
+\subsection{Outputting}
+We can output to the page as in other languages with command echo. Backslash serves 
+the purpose of escaping characters (quotes, double quotes, ...). Concanation is done
+with comma or with character dot.\\
+Messages can start with quotes of double quotes and can contain
+complex messages with syntax ${@var}$. \\
+\textit{Commands} : 
+\begin{description}
+\item[\hspace{1cm} echo] - echo command. It can be with or without parentheses. It has no return value.
+\item[\hspace{1cm} echo msg1] - echo/prints msg1.
+\item[\hspace{1cm} echo msg1 . msg2] - echo msg1 concanated with msg2.
+\item[\hspace{1cm} echo msg1 , msg2] - echo msg1 concanated with msg2.
+\item[\hspace{1cm} print] - print command. It can be with or without parentheses, has return value 1 and can have only one parameter.
+\item[\hspace{1cm} print msg1] - prints msg1. 
+\end{description}
+Video can be seen at : \href{http://youtu.be/ZbRG9KQBbts}{Outputting}
+
+\subsection{Strings, Heredoc \& Nowdoc syntax}
+String can be defined (Figure \hyperref[strings]{\ref{strings}}) as we already mentioned with quotes or double quotes and can contain complex messages with syntax ${@var}$. \\
+Other type of defining string is \textbf{Heredoc} syntax which uses <<< operator. After operator an identifier (it can be any label) is provided with leading newline. The string itself follows on the lines and we close it with the same identifier. String in heredoc is further parsed and variables are replaced with corresponding values.\\
+Last type of string syntax is \textbf{Nowdoc} which support was added in PHP5.3.0. It's specified similarly to a Heredoc, but no parsing is done.
+Only difference is that identifier (it can be any label) is enclosed in single quotes. \\
+Heredoc and Nowdoc styles are great for printing html content. \\
+\textit{Commands} :
+\begin{description}
+\item[\hspace{1cm}] No command in this section
+\end{description}
+Video can be seen at : \href{http://youtu.be/ZbRG9KQBbts}{Outputting}
+
+\begin{figure}[h]
+\lstset{language=PHP}
+\begin{lstlisting}[showstringspaces=false]
+<?php
+// Single quoted string
+$str = 'Hi my name is Andrew';
+
+// Double quotes string
+$str = "Hi my name is Andrew';
+
+// complex syntax
+$str = "Hi my name is {$var}";
+
+// Heredoc string (multilined). Nothing to parse.
+$str = <<<LABEL
+Hi my name is Andrew.
+What's your name.
+LABEL;
+
+// Heredoc string (multilined). Command print $str will print
+// this string with replaced part $name.
+$str = <<<LABEL
+Hi my name is $name.
+What's your name.
+LABEL;
+
+// Nowdoc string (multilined). Command print $str will print
+// this string exactly like it's defined.
+$str = <<<'LABEL'
+Hi my name is $name.
+What's your name.
+LABEL;
+
+?>
+\end{lstlisting}
+\caption{String types \label{strings}}
+\end{figure}
+
+\subsection{Variables}
+
+\end{document}
