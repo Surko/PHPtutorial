@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{float}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{hyperref}
@@ -19,7 +20,11 @@ Every command ends with semicolon. \\
 Files with names home.php or index.php are started first when web page is refreshed even if they are not called explicitly. \\
 \textit{Commands} : 
 \begin{description}
-\item[\hspace{1cm} phpinfo()] Shows info page about running PHP 
+\item[\hspace{1cm} phpinfo()] - Shows info page about running PHP 
+\item[\hspace{1cm} include phpfile] - Includes phpfile into another php file. If no such file exists than warning is printed. If the file is already included than a fatal error is thrown.
+\item[\hspace{1cm} include\_once phpfile] - Includes phpfile into another php file. If no such file exists than warning is printed. If it's already included than it just skips inclusion.
+\item[\hspace{1cm} require phpfile] - Includes phpfile into another php file but if there is no such file than a fatal error on a page is thrown. If the file is already included than a fatal error is thrown.
+\item[\hspace{1cm} require\_once phpfile] - Includes phpfile into another php file but if there is no such file than a fatal error on a page is thrown. If it's already included than it just skips inclusion.
 \end{description}
 Video can be seen at : \href{http://youtu.be/QRmmISj6Rrw}{FirstFile}
 
@@ -31,7 +36,7 @@ Comments can be defined (Figure \hyperref[commenting]{\ref{commenting}}) with al
 \end{description}
 Video can be seen at : \href{http://youtu.be/KZecj4u4Scw}{Commenting}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \lstset{language=PHP}
 \begin{lstlisting}
 <?php
@@ -50,7 +55,7 @@ We can output to the page as in other languages with command echo. Backslash ser
 the purpose of escaping characters (quotes, double quotes, ...). Concanation is done
 with comma or with character dot.\\
 Messages can start with quotes of double quotes and can contain
-complex messages with syntax ${@var}$. \\
+complex messages with syntax $\{@var\}$. \\
 \textit{Commands} : 
 \begin{description}
 \item[\hspace{1cm} echo] - echo command. It can be with or without parentheses. It has no return value.
@@ -62,19 +67,21 @@ complex messages with syntax ${@var}$. \\
 \end{description}
 Video can be seen at : \href{http://youtu.be/ZbRG9KQBbts}{Outputting}
 
+\pagebreak
 \subsection{Strings, Heredoc \& Nowdoc syntax}
-String can be defined (Figure \hyperref[strings]{\ref{strings}}) as we already mentioned with quotes or double quotes and can contain complex messages with syntax ${@var}$. \\
-Other type of defining string is \textbf{Heredoc} syntax which uses <<< operator. After operator an identifier (it can be any label) is provided with leading newline. The string itself follows on the lines and we close it with the same identifier. String in heredoc is further parsed and variables are replaced with corresponding values.\\
+String can be defined (Figure \hyperref[strings]{\ref{strings}}) as we already mentioned with quotes or double quotes and can contain complex messages with syntax ${@var}$. Double quotes string can recognize escape character $\backslash n$,$\backslash t$,... \\
+Other type of defining string is \textbf{Heredoc} syntax which uses $<<<$ operator. After operator an identifier (it can be any label) is provided with leading newline. The string itself follows on the lines and we close it with the same identifier. String in heredoc is further parsed and variables are replaced with corresponding values.\\
 Last type of string syntax is \textbf{Nowdoc} which support was added in PHP5.3.0. It's specified similarly to a Heredoc, but no parsing is done.
 Only difference is that identifier (it can be any label) is enclosed in single quotes. \\
 Heredoc and Nowdoc styles are great for printing html content. \\
 \textit{Commands} :
 \begin{description}
-\item[\hspace{1cm}] No command in this section
+\item[\hspace{1cm} strtoupper(\$str)] - returns upper version of variable \$str.
+\item[\hspace{1cm} strtolower(\$str)] - returns lower version of variable \$str.
 \end{description}
 Video can be seen at : \href{http://youtu.be/ZbRG9KQBbts}{Outputting}
 
-\begin{figure}[h]
+\begin{figure}
 \lstset{language=PHP}
 \begin{lstlisting}[showstringspaces=false]
 <?php
@@ -111,7 +118,214 @@ LABEL;
 \end{lstlisting}
 \caption{String types \label{strings}}
 \end{figure}
+\pagebreak
 
-\subsection{Variables}
+\subsection{Variables, types and NULL}
+Variables in PHP are defined like we already seen. We use dollar sign
+and name of the variable we desire.\\
+Variable type is decided by a value. Checking the type is possible with
+function var\_dump(\$var). We can retype as in Java with parentheses before value. \\ 
+Variable without associated value is undefined and function
+var\_dump return NULL type. We can undefine variable with function
+unset. Unsetted variable has NULL type too.\\
+Array can be defined in variable by command array(values) or array(key => value,...). Multidimensional array is array with other arrays inside of it. New values are added to array by inserting onto index out of bounds. Values can be accesed via square brackets and key inside them.\\
+\textit{Examples}
+\begin{description}
+\item[\hspace{1cm} \$s\_age = (string)15.5;]
+\item[\hspace{1cm} \$working = true;]
+\item[\hspace{1cm} \$null\_value = NULL;]
+\item[\hspace{1cm} \$array = array(value1,value2,...)]
+\item[\hspace{1cm} \$array = array(value1,array(value2\_1,value2\_2),...)]
+\item[\hspace{1cm} \dots]
+\end{description} 
+\hfill\newline
+\textit{Commands} :
+\begin{description}
+\item[\hspace{1cm} var\_dump(\$var)] - returns type of variable var.
+\item[\hspace{1cm} global \$var] - var is a global variable. Usually called from functions to access some variable globally.
+\item[\hspace{1cm} unset(\$var)] - unset the variable var. After that variable has NULL type. 
+\item[\hspace{1cm} is\_null(\$var)] - Check if variable is undefined. Return boolean value.
+\item[\hspace{1cm} count(\$array)] - Count of elements in array
+\end{description}
+Videos can be seen at : \href{http://youtu.be/6MxUGGEcDB4}{Variables}, \href{http://youtu.be/0p6YgVpU6OU}{Variable Scope},\href{http://youtu.be/VY8fRzKUb2Q}{NULL}.
+
+\subsection{Operators}
+Operators in PHP are except few same as in other languages.\\
+\textit{Commands} : 
+\begin{description}
+\item[\hspace{1cm}] No command in this section
+\end{description}
+\textit{Arithmetic Operators} : \\
+\begin{tabular}{c l}
+\hspace{1cm} \$x + \$y & - Summation of x and y. \\
+\hspace{1cm} \$x - \$y & - Difference of x and y. \\
+\hspace{1cm} \$x * \$y & - Multiplication of x and y. \\
+\hspace{1cm} \$x / \$y & - Division of variables x and y.\\
+\hspace{1cm} \$x \% \$y & - Division remainder of variables x and y.\\
+\hspace{1cm} \$x ** \$y & - Raising of variable x to variable y.\\
+\end{tabular}
+\vspace{0.5cm}
+\hfill\newline
+\textit{Assignment Operators} : \\
+\begin{tabular}{c l}
+\hspace{1cm} \$x = \$y & - Assign variable y to x. \\
+\hspace{1cm} \$x += \$y & - Assign x + y to x. \\
+\hspace{1cm} \$x -= \$y & - Assign x - y to x. \\
+\hspace{1cm} \$x *= \$y & - Assign x * y to x.\\
+\hspace{1cm} \$x /= \$y & - Assign x / y to x.\\
+\hspace{1cm} \$x \%= \$y & - Assign x \% y to x.\\
+\end{tabular}
+\vspace{.5cm}
+\hfill\newline
+\textit{Comparison Operators} : \\
+\begin{tabular}{c l}
+\hspace{1cm} \$x $<$ \$y & - Returns true if x is less than y.\\
+\hspace{1cm} \$x $>$ \$y & - Returns true if x is more than y.\\
+\hspace{1cm} \$x $<=$ \$y & - Returns true if x is less or equal to y.\\
+\hspace{1cm} \$x $>=$ \$y & - Returns true if x is more or equal y.\\
+\hspace{1cm} \$x == \$y & - Return true if x is equal to y.\\
+\hspace{1cm} \$x === \$y & - Returns true if x is equal to y and x is
+of a same type as y.\\
+\hspace{1cm} \$x != \$y & - Return true if x is not equal to y.\\
+\hspace{1cm} \$x !== \$y & - Returns true if x is not equal to y or x is
+not of a same type as y.\\
+\hspace{1cm} \$x $<>$ \$y & - Return true if x is not equal to y.\\
+\end{tabular}
+\vspace{.5cm}
+\hfill\newline
+\textit{Assignment Operators} : \\
+\begin{tabular}{c l}
+\hspace{1cm} ++\$x & - Increases x by one and returns. \\
+\hspace{1cm} --\$x & - Decreases x by one and returns.\\
+\hspace{1cm} \$x++ & - Returns x and increase x by one.\\
+\hspace{1cm} \$x-- & - Returns x and decrease x by one.\\
+\end{tabular}
+\vspace{.5cm}
+\hfill\newline
+\textit{Logical Operators} : \\
+\begin{tabular}{c l}
+\hspace{1cm} \$x and \$y & - Returns true if x and y are true.\\
+\hspace{1cm} \$x or \$y & - Returns true if either one is true.\\
+\hspace{1cm} \$x xor \$y & - Returns true if x is less or equal to y.\\
+\hspace{1cm} \$x \&\& \$y & - Returns true if x and y are true.\\
+\hspace{1cm} \$x $||$ \$y & - Return true if either one is true.\\
+\hspace{1cm} !\$x & - Returns negated value of variable x.\\
+\end{tabular}
+\vspace{.5cm}
+\hfill\newline
+\textit{String Operators} : \\
+\begin{tabular}{c l}
+\hspace{1cm} \$x . \$y & - Concatenation of x and y.\\
+\hspace{1cm} \$x .= \$y & - Same but with assigning to x.\\
+\end{tabular}
+\vspace{.5cm}
+\hfill\newline
+\textit{Array Operators} : \\
+\begin{tabular}{c l}
+\hspace{1cm} \$x + \$y & - Union of array x and y.\\
+\hspace{1cm} \$x == \$y & - Returns true if arrays x and y have the same key/value pairs.\\
+\hspace{1cm} \$x === \$y & - Returns true if arrays x and y are totally identical.\\
+\hspace{1cm} \$x != \$y & - Returns true if arrays x and y have at least one different key/value pairs.\\
+\hspace{1cm} \$x !== \$y & - Returns true if x is not identical to y.\\
+\hspace{1cm} \$x $<>$ \$y & - Returns true if arrays x and y have at least one different key/value pairs.\\
+\end{tabular}
+\pagebreak
+
+\subsection{Control statements}
+Control statements in PHP are no different from other languages. Only difference is in syntax that is used. Commands continue and break work like in other programming languages. \\
+\textit{Commands} : 
+\begin{description}
+\item[\hspace{1cm}] No command in this section
+\end{description}
+\begin{lstlisting}[language=PHP]
+\\ if condition
+if (condition) {
+	\\ commands
+} else {
+	\\ commands
+}
+
+\\ ternary operator similar to if conditions
+$x = condition ? value for true : value for false;
+
+\\ switch case
+switch($var) {
+	case value1 :
+		\\ commands
+	break;
+	\\ other cases
+	default :
+		\\ default commands
+	break;
+}
+
+\\ foreach loop
+foreach($array as $element) {
+	\\ command with element
+}
+\\ foreach loop key => value pair
+foreach($array as $key => $value) {
+	\\ command with key and value
+}
+
+\\ for loop
+for($i = 0; condition with $i; $i++) {
+	\\ commands
+}
+
+\\ while loop
+while (condition) {
+	\\ commands
+}
+\\ do while loop
+do {
+	\\ commands
+} while(condition);
+
+\end{lstlisting}
+Videos can be seen at : \href{http://youtu.be/sQRCnNbEWm4}{IF-cond}, \href{http://youtu.be/q82QMgFvGAE}{switch}, \href{http://youtu.be/SG728V5lD0g}{foreach}, \href{http://youtu.be/FkXws1wTaEo}{for}, \href{http://youtu.be/gn5Rmn2gLJo}{while}.
+
+\subsection{Functions}
+Functions in PHP have reserved word \textbf{function} with a name of function and curly brackets after that that contains commands which function will run. Early exit from function is done by command \textbf{return} that is usually followed with value to return. In section about variables we mentioned command global that open the possiblity to use variable inside the function and propagate change even out of function block. \\ 
+With anonymous functions we can set a variable as a function and then work with this variable as a function inside other functions etc\ldots .\\
+
+\textit{Commands} : 
+\begin{description}
+\item[\hspace{1cm} is\_callable(\$callback)] - test whether variable \$callback is callable as a function. 
+\item[\hspace{1cm} call\_user\_func(\$callback, params...)] - call function inside variable with arguments params.
+\end{description}
+
+\begin{lstlisting}[language=PHP]
+$global_var;
+
+function print_msg($msg) {
+	echo $msg;	
+}
+
+function info() {
+	echo "Info message";
+	return "Info message";
+}
+
+function add($num1, $num2) {
+	return $num1 + $num2;
+}
+
+function global_add($num1, $num2) {
+	global $global_var;
+	$global_var = $num1 + $num2;
+}
+
+// anonymous function that set the variable @age to a function that
+// returns 23.
+$age = function() {
+	return 23;
+}
+echo $age();
+
+\end{lstlisting}
+Videos can be seen at : \href{http://youtu.be/KBC3awDI4wc}{Functions}, \href{http://youtu.be/SQu-aXazr5k}{Anonymous functions}, \href{http://youtu.be/gFJsBQIqpto}{Callbacks}.
+
+\subsection{GET \& POST}
 
 \end{document}
